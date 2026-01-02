@@ -130,6 +130,16 @@ task-manager/
 * Add Task Modal
 * Task Details Modal
 
+<img width="1331" height="683" alt="image" src="https://github.com/user-attachments/assets/915f4555-1a51-4614-81f4-cce87e0b1da3" />
+<img width="1332" height="685" alt="image" src="https://github.com/user-attachments/assets/2f0e1299-4acc-4855-a007-0b0abf8c1fe9" />
+<img width="1330" height="684" alt="image" src="https://github.com/user-attachments/assets/114af65a-587d-4775-8014-c729ea098e08" />
+<img width="1330" height="683" alt="image" src="https://github.com/user-attachments/assets/16a0d5c0-e1ea-46f6-b30c-8abddd543666" />
+<img width="1338" height="683" alt="image" src="https://github.com/user-attachments/assets/e3b69d45-613a-41c4-90a8-541b06b08654" />
+
+
+
+
+
 *(Screenshots can be added here)*
 
 ---
