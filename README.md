@@ -138,10 +138,6 @@ task-manager/
 
 
 
-
-
-*(Screenshots can be added here)*
-
 ---
 
 ## 👨‍💻 Author
