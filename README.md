@@ -1,10 +1,4 @@
-Perfect 👍
-Neeche **READY-TO-USE `README.md` content** + **GitHub push steps (step-by-step)** de raha hoon.
-👉 Bas **copy–paste** karo, kaam ho jayega.
 
----
-
-# 📄 **README.md (COPY–PASTE READY)**
 
 ````md
 # 📝 Task Management System (MERN Stack)
