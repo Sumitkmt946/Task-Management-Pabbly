@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./sidenav.css"
 
-import { FaTasks } from "react-icons/fa";
+import { FaTasks, FaUsers, FaFolderOpen, FaUserCog } from "react-icons/fa";
 
 import { LuLogOut } from "react-icons/lu";
 import profile from '../../assets/sidenav/profile.png';
@@ -20,7 +20,7 @@ function Sidenav() {
         try {
           const base64Url = token.split('.')[1];
           const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-          const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+          const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
             return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
           }).join(''));
           const payload = JSON.parse(jsonPayload);
@@ -78,6 +78,9 @@ function Sidenav() {
       </div>
       <div className='sidenav-list-main-container'>
         <Link to="/admin/tasks"><div className={`sidenav-list ${location.pathname === "/admin/tasks" ? "default-hover" : ""}`}><span><FaTasks className='sidenav-icon' /></span><p className='sidenav-list-text'>Tasks</p></div></Link>
+        <Link to="/admin/team"><div className={`sidenav-list ${location.pathname === "/admin/team" ? "default-hover" : ""}`}><span><FaUsers className='sidenav-icon' /></span><p className='sidenav-list-text'>Team</p></div></Link>
+        <Link to="/admin/projects"><div className={`sidenav-list ${location.pathname === "/admin/projects" ? "default-hover" : ""}`}><span><FaFolderOpen className='sidenav-icon' /></span><p className='sidenav-list-text'>Projects</p></div></Link>
+        <Link to="/admin/profile"><div className={`sidenav-list ${location.pathname === "/admin/profile" ? "default-hover" : ""}`}><span><FaUserCog className='sidenav-icon' /></span><p className='sidenav-list-text'>Profile</p></div></Link>
         <Link to="/logout"><div className={`sidenav-list ${location.pathname === "/logout" ? "default-hover" : ""}`}><span><LuLogOut className='sidenav-icon' /></span><p className='sidenav-list-text'>Logout</p></div></Link>
       </div>
     </div>

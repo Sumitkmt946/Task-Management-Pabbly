@@ -1,0 +1,219 @@
+:root {
+    --bg-primary: #F5F8FF;
+    --bg-secondary: #ffffff;
+    --bg-card: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #666666;
+    --text-muted: #888888;
+    --border-color: #e0e0e0;
+    --shadow-color: rgba(0, 0, 0, 0.08);
+    --accent-color: #0D9488;
+}
+
+body.dark-mode {
+    --bg-primary: #0f0f1a;
+    --bg-secondary: #1a1a2e;
+    --bg-card: #1e1e32;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --text-muted: #888888;
+    --border-color: #333355;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+#root {
+    background-color: var(--bg-primary);
+    min-height: 100vh;
+    transition: background-color 0.3s ease;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s ease;
+}
+
+body.dark-mode {
+    background-color: #0f0f1a;
+}
+
+.app-main-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+.app-main-left-container {
+    width: 25%;
+    padding: 0 1rem;
+}
+
+.app-main-right-container {
+    width: 75%;
+    padding: 0 4rem;
+    background-color: var(--bg-primary);
+    transition: background-color 0.3s ease;
+}
+
+/* ========== GLOBAL DARK MODE STYLES ========== */
+
+/* Sidebar Dark Mode */
+body.dark-mode .sidenav-main-container {
+    background: linear-gradient(180deg, #1a1a2e 0%, #16162a 100%) !important;
+}
+
+body.dark-mode .sidenav-profile-name,
+body.dark-mode .sidenav-list-text {
+    color: #ffffff !important;
+}
+
+body.dark-mode .sidenav-profile-email {
+    color: #b0b0b0 !important;
+}
+
+body.dark-mode .sidenav-list:hover {
+    background-color: rgba(13, 148, 136, 0.2) !important;
+}
+
+/* Navbar Dark Mode */
+body.dark-mode .navbar-container {
+    background-color: var(--bg-card) !important;
+    border-color: var(--border-color) !important;
+}
+
+body.dark-mode .navbar-text,
+body.dark-mode .navbar-title {
+    color: var(--text-primary) !important;
+}
+
+/* Dashboard Dark Mode */
+body.dark-mode .dashboard-main-container {
+    background-color: var(--bg-primary) !important;
+}
+
+body.dark-mode .welcome-container,
+body.dark-mode .stats-container,
+body.dark-mode .add-task-container,
+body.dark-mode .team-stats-container,
+body.dark-mode .projects-stats-container {
+    background: linear-gradient(135deg, var(--bg-card) 0%, #252540 100%) !important;
+    box-shadow: 0 4px 20px var(--shadow-color) !important;
+}
+
+body.dark-mode .todo-text,
+body.dark-mode .stats-num,
+body.dark-mode .stats-text {
+    color: var(--text-primary) !important;
+}
+
+/* Cards Dark Mode */
+body.dark-mode .task-card,
+body.dark-mode .team-card,
+body.dark-mode .project-card {
+    background: linear-gradient(145deg, var(--bg-card) 0%, #252540 100%) !important;
+    border-color: var(--border-color) !important;
+    box-shadow: 0 4px 20px var(--shadow-color) !important;
+}
+
+body.dark-mode .task-title,
+body.dark-mode .member-name,
+body.dark-mode .project-name {
+    color: var(--text-primary) !important;
+}
+
+body.dark-mode .task-description,
+body.dark-mode .project-description {
+    color: var(--text-secondary) !important;
+}
+
+body.dark-mode .member-contact p,
+body.dark-mode .member-department,
+body.dark-mode .project-meta-item {
+    color: var(--text-secondary) !important;
+}
+
+/* Team & Projects Headers */
+body.dark-mode .team-title,
+body.dark-mode .projects-title {
+    color: var(--text-primary) !important;
+}
+
+body.dark-mode .team-search,
+body.dark-mode .team-role-filter,
+body.dark-mode .projects-search,
+body.dark-mode .projects-status-filter {
+    background-color: var(--bg-card) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+body.dark-mode .team-search::placeholder,
+body.dark-mode .projects-search::placeholder {
+    color: var(--text-muted) !important;
+}
+
+/* Progress Section */
+body.dark-mode .project-progress-section {
+    background-color: #252540 !important;
+}
+
+body.dark-mode .progress-header {
+    color: var(--text-secondary) !important;
+}
+
+/* Tables Dark Mode */
+body.dark-mode table,
+body.dark-mode .table-container {
+    background-color: var(--bg-card) !important;
+}
+
+body.dark-mode th,
+body.dark-mode td {
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+body.dark-mode tr:hover {
+    background-color: rgba(13, 148, 136, 0.1) !important;
+}
+
+/* Modals Dark Mode */
+body.dark-mode .chakra-modal__content {
+    background-color: var(--bg-card) !important;
+}
+
+body.dark-mode .chakra-modal__header,
+body.dark-mode .chakra-modal__body {
+    color: var(--text-primary) !important;
+}
+
+body.dark-mode .chakra-form__label {
+    color: var(--text-secondary) !important;
+}
+
+body.dark-mode .chakra-input,
+body.dark-mode .chakra-textarea,
+body.dark-mode .chakra-select {
+    background-color: #252540 !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Card Footers */
+body.dark-mode .team-card-footer,
+body.dark-mode .project-card-footer {
+    border-color: var(--border-color) !important;
+}
+
+/* Task Stats */
+body.dark-mode .stat-first-row .stats-container {
+    background: linear-gradient(135deg, var(--bg-card) 0%, #252540 100%) !important;
+}
+
+/* No data messages */
+body.dark-mode .no-members,
+body.dark-mode .no-projects,
+body.dark-mode .no-tasks {
+    color: var(--text-muted) !important;
+}

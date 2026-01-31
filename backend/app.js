@@ -14,9 +14,10 @@ const projectRoute = require('./routes/project');
 const taskRoute = require('./routes/task');
 const timesheetRoute = require('./routes/timesheet');
 const attendanceRoute = require('./routes/attendance');
+const teamRoute = require('./routes/team');
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 connectDB();
 
 app.use(express.json());
@@ -36,6 +37,7 @@ app.use('/api', projectRoute);
 app.use('/api', taskRoute);
 app.use('/api', timesheetRoute);
 app.use('/api', attendanceRoute);
+app.use('/api', teamRoute);
 
 // Server Listen
 app.listen(PORT, () => {

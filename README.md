@@ -1,153 +1,329 @@
+# � Task Management System
 
-
-
-# 📝 Task Management System (MERN Stack)
-
-A modern **Task Management System** built using the **MERN Stack (MongoDB, Express, React, Node.js)**.  
-This application helps users manage tasks efficiently with authentication, priority-based task organization, and a clean dashboard UI.
+A comprehensive **full-stack Task Management System** built with React.js and Node.js, featuring team collaboration, project tracking, and a modern UI with dark mode support.
 
 ---
 
 ## 🚀 Features
 
-### 🔐 User Authentication
-- User Registration & Login
-- JWT-based authentication
-- Secure logout functionality
-
-### ✅ Task Management
-- Create tasks with:
-  - Title
-  - Description
-  - Due Date
-  - Status (To-Do, In Progress, Completed)
-  - Priority (Most Important, Important, Least Important)
-- View task details in a modal
-- Edit existing tasks
-- Delete tasks with confirmation dialog
-- Update task status easily
-
-### 🎯 Priority Management
-- Tasks are grouped and color-coded based on priority
-- Easy visual identification of urgent tasks
-
-### 📊 Dashboard
-- Modern and responsive dashboard UI
-- Task statistics (Total, Pending, In Progress, Completed)
-- Sidebar navigation with user profile
-- AJAX-based pagination for better performance
+| Feature | Description |
+|---------|-------------|
+| ✅ **Tasks** | Create, update, delete, and track tasks with priorities and statuses |
+| 👥 **Team** | Manage team members with roles, departments, and contact info |
+| 📁 **Projects** | Track projects with progress bars, deadlines, and task counts |
+| 👤 **Profile** | Edit user profile with settings and preferences |
+| 🌙 **Dark Mode** | Toggle between light and dark themes |
+| 🔐 **Authentication** | Secure login with JWT tokens |
+| 📊 **Dashboard** | Statistics and overview of all activities |
+| 🔄 **Mock Data** | Works offline with localStorage fallback |
 
 ---
 
-## 🛠 Tech Stack
+## 🏗️ System Architecture
 
-### Frontend
-- React.js
-- CSS / Inline Styling
-- Axios
-
-### Backend
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- JWT Authentication
-
----
-
-## ⚙️ Installation & Setup
-
-### 1️⃣ Clone the repository
-```bash
-git remote add origin https://github.com/Sumitkmt946/Task-Management-Pabbly.git
-````
-
-### 2️⃣ Backend Setup
-
-```bash
-cd backend
-npm install
-node server.js
-```
-
-Server will start on:
-
-```
-http://localhost:5000
-```
-
-### 3️⃣ Frontend Setup
-
-```bash
-cd frontend
-npm install
-npm start
-```
-
-Frontend will run on:
-
-```
-http://localhost:3000
+```mermaid
+flowchart TB
+    subgraph Frontend["🖥️ Frontend (React.js)"]
+        UI[UI Components]
+        Pages[Pages]
+        Services[API Service]
+        Storage[localStorage]
+    end
+    
+    subgraph Backend["⚙️ Backend (Node.js + Express)"]
+        Routes[API Routes]
+        Middleware[Auth Middleware]
+        Controllers[Controllers]
+    end
+    
+    subgraph Database["🗄️ Database"]
+        MongoDB[(MongoDB)]
+    end
+    
+    UI --> Pages
+    Pages --> Services
+    Services -->|Backend Available| Routes
+    Services -->|Backend Offline| Storage
+    Routes --> Middleware
+    Middleware --> Controllers
+    Controllers --> MongoDB
 ```
 
 ---
 
 ## 📂 Project Structure
 
+```mermaid
+flowchart LR
+    subgraph Root["📁 Task-Management-System"]
+        subgraph FE["📁 src (Frontend)"]
+            Layouts[layouts/]
+            Components[components/]
+            ServicesF[services/]
+            Assets[assets/]
+        end
+        subgraph BE["📁 backend"]
+            Models[models/]
+            RoutesB[routes/]
+            Config[config/]
+            MiddlewareB[middleware/]
+        end
+    end
 ```
-task-manager/
-│
-├── backend/
-│   ├── models/
-│   ├── routes/
-│   ├── middleware/
-│   └── server.js
-│
-├── frontend/
-│   ├── src/
-│   │   ├── pages/
-│   │   ├── components/
-│   │   └── api.js
-│
-└── README.md
+
+### Frontend Structure
+```
+src/
+├── layouts/
+│   ├── auth/           # Login, Register, Logout
+│   ├── dashboard/      # Dashboard page
+│   ├── tasks/          # Tasks list & details
+│   ├── team/           # Team members
+│   ├── projects/       # Projects management
+│   └── profile/        # User profile & settings
+├── components/
+│   ├── sidenav/        # Sidebar navigation
+│   └── navbar/         # Top navigation bar
+├── services/
+│   └── api.js          # Unified API service
+└── assets/             # Images and icons
+```
+
+### Backend Structure
+```
+backend/
+├── models/
+│   ├── users.js        # User model
+│   ├── tasks.js        # Task model
+│   ├── projects.js     # Project model
+│   ├── teamMembers.js  # Team member model
+│   └── employees.js    # Employee model
+├── routes/
+│   ├── auth.js         # Authentication routes
+│   ├── task.js         # Task CRUD routes
+│   ├── project.js      # Project CRUD routes
+│   ├── team.js         # Team CRUD routes
+│   └── dashboard.js    # Dashboard routes
+├── middleware/
+│   └── auth.js         # JWT authentication
+└── config/
+    └── db.js           # MongoDB connection
 ```
 
 ---
 
-## 🔐 Authentication Flow
+## 🔄 Application Flow
 
-* User logs in → JWT token stored in localStorage
-* Protected routes accessible only when token exists
-* Logout clears token and redirects to login page
+```mermaid
+flowchart TD
+    A[👤 User Opens App] --> B{Logged In?}
+    B -->|No| C[Login Page]
+    C --> D[Enter Credentials]
+    D --> E{Backend Available?}
+    E -->|Yes| F[API Authentication]
+    E -->|No| G[Mock Authentication]
+    F --> H[Dashboard]
+    G --> H
+    B -->|Yes| H
+    
+    H --> I{Select Module}
+    I -->|Tasks| J[📋 Tasks Page]
+    I -->|Team| K[👥 Team Page]
+    I -->|Projects| L[📁 Projects Page]
+    I -->|Profile| M[👤 Profile Page]
+    
+    J --> N[CRUD Operations]
+    K --> N
+    L --> N
+    
+    N --> O{Backend Available?}
+    O -->|Yes| P[Save to MongoDB]
+    O -->|No| Q[Save to localStorage]
+```
 
 ---
 
-## 📸 Screenshots
+## 🛠️ Tech Stack
 
-* Login Page
-* Register Page
-* Dashboard
-* Add Task Modal
-* Task Details Modal
+### Frontend
+| Technology | Purpose |
+|------------|---------|
+| React.js | UI Framework |
+| React Router | Navigation |
+| Chakra UI | Component Library |
+| Axios | HTTP Client |
+| React Icons | Icon Library |
 
-<img width="1331" height="683" alt="image" src="https://github.com/user-attachments/assets/915f4555-1a51-4614-81f4-cce87e0b1da3" />
-<img width="1332" height="685" alt="image" src="https://github.com/user-attachments/assets/2f0e1299-4acc-4855-a007-0b0abf8c1fe9" />
-<img width="1330" height="684" alt="image" src="https://github.com/user-attachments/assets/114af65a-587d-4775-8014-c729ea098e08" />
-<img width="1330" height="683" alt="image" src="https://github.com/user-attachments/assets/16a0d5c0-e1ea-46f6-b30c-8abddd543666" />
-<img width="1338" height="683" alt="image" src="https://github.com/user-attachments/assets/e3b69d45-613a-41c4-90a8-541b06b08654" />
+### Backend
+| Technology | Purpose |
+|------------|---------|
+| Node.js | Runtime |
+| Express.js | Web Framework |
+| MongoDB | Database |
+| Mongoose | ODM |
+| JWT | Authentication |
+| bcrypt | Password Hashing |
 
+---
 
+## 📡 API Endpoints
+
+### Authentication
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/login` | User login |
+| POST | `/api/register` | User registration |
+| GET | `/api/me` | Get current user |
+| GET | `/api/health` | Health check |
+
+### Tasks
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/tasks` | Get all tasks |
+| GET | `/api/task/:id` | Get single task |
+| POST | `/api/task` | Create task |
+| PUT | `/api/task/:id` | Update task |
+| DELETE | `/api/task/:id` | Delete task |
+| GET | `/api/tasks/summary` | Get task statistics |
+
+### Projects
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/projects` | Get all projects |
+| GET | `/api/projects/:id` | Get single project |
+| POST | `/api/projects` | Create project |
+| PUT | `/api/projects/:id` | Update project |
+| DELETE | `/api/projects/:id` | Delete project |
+
+### Team
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/team` | Get all team members |
+| GET | `/api/team/:id` | Get single member |
+| POST | `/api/team` | Add team member |
+| PUT | `/api/team/:id` | Update member |
+| DELETE | `/api/team/:id` | Remove member |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v14+)
+- MongoDB
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/your-username/Task-Management-System.git
+cd Task-Management-System
+```
+
+2. **Install Frontend Dependencies**
+```bash
+npm install
+```
+
+3. **Install Backend Dependencies**
+```bash
+cd backend
+npm install
+```
+
+4. **Configure Environment Variables**
+
+Create `backend/.env`:
+```env
+MONGODB_URI=mongodb://localhost:27017/taskmanagement
+JWT_SECRET_KEY=your_secret_key
+PORT=8000
+```
+
+5. **Start MongoDB**
+```bash
+mongod
+```
+
+6. **Start Backend Server**
+```bash
+cd backend
+npm start
+```
+
+7. **Start Frontend**
+```bash
+npm start
+```
+
+---
+
+## 🌐 Running the App
+
+| Service | URL |
+|---------|-----|
+| Frontend | http://localhost:3000 |
+| Backend | http://localhost:8000 |
+| API Health | http://localhost:8000/api/health |
+
+---
+
+## 🌙 Dark Mode
+
+The app supports system-wide dark mode. Toggle it from the **Profile** page:
+
+1. Navigate to Profile (`/admin/profile`)
+2. Find "Dark Mode" toggle in App Settings
+3. Switch between Light and Dark themes
+4. Setting persists across page refreshes
+
+---
+
+## � Screenshots
+
+### Dashboard
+- Statistics overview
+- Quick access cards
+- Recent activities
+
+### Tasks
+- Task cards with priorities
+- Status badges
+- Add/Edit/Delete operations
+
+### Team
+- Team member cards
+- Role badges
+- Contact information
+
+### Projects
+- Progress tracking
+- Deadline management
+- Task counts
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## � License
+
+This project is licensed under the MIT License.
 
 ---
 
 ## 👨‍💻 Author
 
-**Sumit Kumawat**
+**Ashok**
 
 ---
 
-## 📌 Conclusion
-
-This project demonstrates a complete CRUD-based task management system with authentication, priority handling, and a modern UI, suitable for real-world applications and technical assessments.
-
-````
+⭐ **Star this repo if you found it helpful!**

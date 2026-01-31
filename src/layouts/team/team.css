@@ -1,0 +1,235 @@
+.team-content-container {
+    padding: 20px;
+}
+
+.team-stats-container {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.stat-first-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+.team-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.team-header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.team-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 0;
+}
+
+.team-filters {
+    display: flex;
+    gap: 12px;
+}
+
+.team-search {
+    padding: 10px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    width: 220px;
+    transition: all 0.3s ease;
+}
+
+.team-search:focus {
+    outline: none;
+    border-color: #0D9488;
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+}
+
+.team-role-filter {
+    padding: 10px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.team-role-filter:focus {
+    outline: none;
+    border-color: #0D9488;
+}
+
+/* Team Grid */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.no-members {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #888;
+    font-size: 1.1rem;
+    padding: 40px;
+}
+
+/* Team Card */
+.team-card {
+    background: linear-gradient(145deg, #ffffff 0%, #fafafa 100%);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #f0f0f0;
+}
+
+.team-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.team-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.team-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid #0D9488;
+    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+}
+
+.status-badge {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+}
+
+.team-card-body {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.member-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 0 0 8px 0;
+}
+
+.member-contact {
+    margin: 12px 0;
+    text-align: left;
+}
+
+.member-contact p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+    font-size: 13px;
+    margin: 6px 0;
+}
+
+.contact-icon {
+    color: #0D9488;
+    font-size: 16px;
+}
+
+.member-department {
+    color: #888;
+    font-size: 12px;
+    font-style: italic;
+    margin-top: 8px;
+}
+
+.team-card-footer {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    padding-top: 16px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.team-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.team-btn.edit-btn {
+    background: linear-gradient(135deg, #0D9488 0%, #0f766e 100%);
+    color: white;
+}
+
+.team-btn.edit-btn:hover {
+    background: linear-gradient(135deg, #0f766e 0%, #0d5d56 100%);
+    transform: scale(1.02);
+}
+
+.team-btn.delete-btn {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+}
+
+.team-btn.delete-btn:hover {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    transform: scale(1.02);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .team-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .team-header-left {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .team-filters {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .team-search {
+        width: 100%;
+    }
+
+    .team-role-filter {
+        width: 100%;
+    }
+
+    .stat-first-row {
+        flex-direction: column;
+    }
+}

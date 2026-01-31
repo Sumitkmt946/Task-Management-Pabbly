@@ -4,7 +4,6 @@ import login from "../../assets/register/login.png"
 import email from "../../assets/register/email.png"
 import password from "../../assets/register/password.png"
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { useToast, Spinner } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
@@ -20,34 +19,28 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        try {
-            const response = await axios.post('/api/login', formData);
-            const token = response?.data?.token;
-            localStorage.setItem('tm_token', token);
-            // fetch profile and store for immediate sidebar display
-            try {
-                const axiosInstance = axios.create({ headers: { Authorization: `Bearer ${token}` } });
-                const profileRes = await axiosInstance.get('/api/me');
-                localStorage.setItem('tm_user', JSON.stringify(profileRes.data));
-            } catch (err) {
-                console.error('Failed to fetch profile after login', err);
-            }
-            navigate('/admin/tasks')
-        } catch (error) {
-            const Error = error?.response?.data?.message || error.message || 'Login failed';
-            setFormData({
-                email: '',
-                password: ''
-            });
-            toast({
-                title: Error,
-                status: 'error',
-                position: 'top',
-                duration: 5000,
-                isClosable: true,
-            });
-            setLoading(false);
-        }
+
+        // Mock authentication - bypass backend
+        const mockToken = 'mock_token_' + Date.now();
+        const mockUser = {
+            id: 1,
+            name: formData.email.split('@')[0],
+            email: formData.email,
+            role: 'admin'
+        };
+
+        localStorage.setItem('tm_token', mockToken);
+        localStorage.setItem('tm_user', JSON.stringify(mockUser));
+
+        toast({
+            title: 'Login successful!',
+            status: 'success',
+            position: 'top',
+            duration: 3000,
+            isClosable: true,
+        });
+
+        navigate('/admin/tasks');
     };
     return (
         <div className='login-main-container'>

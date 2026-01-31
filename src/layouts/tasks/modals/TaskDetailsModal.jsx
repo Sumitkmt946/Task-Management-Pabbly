@@ -13,16 +13,13 @@ import {
     Select,
     useToast,
 } from '@chakra-ui/react';
-import axios from 'axios';
+import apiService from '../../../services/api';
 
 function TaskDetailsModal({ isOpen, onClose, taskId, onUpdated }) {
     const toast = useToast();
     const [task, setTask] = useState(null);
     const [editing, setEditing] = useState(false);
     const [form, setForm] = useState({ title: '', description: '', dueDate: '', priority: 'Most Important', status: 'To-Do' });
-
-    const token = localStorage.getItem('tm_token');
-    const axiosInstance = axios.create({ headers: { Authorization: `Bearer ${token}` } });
 
     useEffect(() => {
         if (isOpen && taskId) fetchTask();
@@ -31,14 +28,14 @@ function TaskDetailsModal({ isOpen, onClose, taskId, onUpdated }) {
 
     const fetchTask = async () => {
         try {
-            const res = await axiosInstance.get(`/api/task/${taskId}`);
-            setTask(res.data);
+            const res = await apiService.getTask(taskId);
+            setTask(res);
             setForm({
-                title: res.data.title || '',
-                description: res.data.description || '',
-                dueDate: res.data.dueDate ? new Date(res.data.dueDate).toISOString().split('T')[0] : '',
-                priority: res.data.priority || 'Most Important',
-                status: res.data.status || 'To-Do'
+                title: res.title || '',
+                description: res.description || '',
+                dueDate: res.dueDate ? new Date(res.dueDate).toISOString().split('T')[0] : '',
+                priority: res.priority || 'Most Important',
+                status: res.status || 'To-Do'
             });
         } catch (err) {
             console.error(err);
@@ -50,7 +47,7 @@ function TaskDetailsModal({ isOpen, onClose, taskId, onUpdated }) {
 
     const handleSave = async () => {
         try {
-            await axiosInstance.put(`/api/task/${taskId}`, form);
+            await apiService.updateTask(taskId, form);
             toast({ title: 'Task updated', status: 'success' });
             setEditing(false);
             if (typeof onUpdated === 'function') onUpdated();
@@ -65,7 +62,7 @@ function TaskDetailsModal({ isOpen, onClose, taskId, onUpdated }) {
         const ok = window.confirm('Are you sure you want to delete this task?');
         if (!ok) return;
         try {
-            await axiosInstance.delete(`/api/task/${taskId}`);
+            await apiService.deleteTask(taskId);
             toast({ title: 'Task deleted', status: 'success' });
             if (typeof onUpdated === 'function') onUpdated();
             onClose();
@@ -77,7 +74,7 @@ function TaskDetailsModal({ isOpen, onClose, taskId, onUpdated }) {
 
     const updateStatus = async (newStatus) => {
         try {
-            await axiosInstance.put(`/api/task/${taskId}`, { status: newStatus });
+            await apiService.updateTask(taskId, { status: newStatus });
             toast({ title: 'Status updated', status: 'success' });
             if (typeof onUpdated === 'function') onUpdated();
             fetchTask();

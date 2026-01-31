@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useToast, Button, Input, Textarea, Select } from '@chakra-ui/react';
+import apiService from '../../services/api';
 
 function TaskDetails() {
     const { id } = useParams();
@@ -11,14 +11,11 @@ function TaskDetails() {
     const [editing, setEditing] = useState(false);
     const [form, setForm] = useState({ title: '', description: '', dueDate: '', priority: 'Most Important', status: 'To-Do' });
 
-    const token = localStorage.getItem('tm_token');
-    const axiosInstance = axios.create({ headers: { Authorization: `Bearer ${token}` } });
-
     const fetchTask = async () => {
         try {
-            const res = await axiosInstance.get(`/api/task/${id}`);
-            setTask(res.data);
-            setForm({ title: res.data.title || '', description: res.data.description || '', dueDate: res.data.dueDate ? new Date(res.data.dueDate).toISOString().split('T')[0] : '', priority: res.data.priority || 'Most Important', status: res.data.status || 'To-Do' });
+            const res = await apiService.getTask(id);
+            setTask(res);
+            setForm({ title: res.title || '', description: res.description || '', dueDate: res.dueDate ? new Date(res.dueDate).toISOString().split('T')[0] : '', priority: res.priority || 'Most Important', status: res.status || 'To-Do' });
         } catch (err) {
             console.error(err);
             toast({ title: 'Failed to load task', status: 'error' });
@@ -31,7 +28,7 @@ function TaskDetails() {
 
     const handleSave = async () => {
         try {
-            await axiosInstance.put(`/api/task/${id}`, form);
+            await apiService.updateTask(id, form);
             toast({ title: 'Task updated', status: 'success' });
             setEditing(false);
             fetchTask();
@@ -45,7 +42,7 @@ function TaskDetails() {
         const ok = window.confirm('Are you sure you want to delete this task?');
         if (!ok) return;
         try {
-            await axiosInstance.delete(`/api/task/${id}`);
+            await apiService.deleteTask(id);
             toast({ title: 'Task deleted', status: 'success' });
             navigate('/admin/tasks');
         } catch (err) {
@@ -56,7 +53,7 @@ function TaskDetails() {
 
     const updateStatus = async (newStatus) => {
         try {
-            await axiosInstance.put(`/api/task/${id}`, { status: newStatus });
+            await apiService.updateTask(id, { status: newStatus });
             toast({ title: 'Status updated', status: 'success' });
             fetchTask();
         } catch (err) {

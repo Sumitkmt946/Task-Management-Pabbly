@@ -17,7 +17,7 @@ import AddTaskModal from './modals/AddTask';
 import TaskDetailsModal from './modals/TaskDetailsModal';
 import { useNavigate } from 'react-router-dom';
 import { IoMdAdd } from "react-icons/io";
-import axios from 'axios';
+import apiService from '../../services/api';
 
 function Tasks() {
     const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
@@ -26,15 +26,10 @@ function Tasks() {
     const [pages, setPages] = useState(1);
     const [limit] = useState(6);
     const toast = useToast();
-    const [summary, setSummary] = useState({ total:0, todo:0, inProgress:0, completed:0, percentTodo:0, percentInProgress:0, percentCompleted:0 });
+    const [summary, setSummary] = useState({ total: 0, todo: 0, inProgress: 0, completed: 0, percentTodo: 0, percentInProgress: 0, percentCompleted: 0 });
     const [selectedTaskId, setSelectedTaskId] = useState(null);
     const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
-    const token = localStorage.getItem('tm_token');
-    const axiosInstance = axios.create({
-        headers: { Authorization: `Bearer ${token}` }
-    });
-    
     const navigate = useNavigate();
 
     const openAddTaskModal = () => {
@@ -47,10 +42,10 @@ function Tasks() {
 
     const fetchTasks = async (p = page) => {
         try {
-            const res = await axiosInstance.get(`/api/tasks?page=${p}&limit=${limit}`);
-            setTasks(res.data.data);
-            setPages(res.data.pages || 1);
-            setPage(res.data.page || 1);
+            const res = await apiService.getTasks(p, limit);
+            setTasks(res.data);
+            setPages(res.pages || 1);
+            setPage(res.page || 1);
             // fetch summary too
             fetchSummary();
         } catch (error) {
@@ -61,8 +56,8 @@ function Tasks() {
 
     const fetchSummary = async () => {
         try {
-            const res = await axiosInstance.get('/api/tasks/summary');
-            setSummary(res.data);
+            const res = await apiService.getTasksSummary();
+            setSummary(res);
         } catch (err) {
             console.error('Summary error', err);
         }
@@ -77,7 +72,7 @@ function Tasks() {
         const ok = window.confirm('Are you sure you want to delete this task?');
         if (!ok) return;
         try {
-            await axiosInstance.delete(`/api/task/${id}`);
+            await apiService.deleteTask(id);
             toast({ title: 'Task deleted', status: 'success', duration: 3000, isClosable: true });
             fetchTasks(page);
         } catch (error) {
@@ -162,9 +157,9 @@ function Tasks() {
                                                 </Tag>
                                             </div>
                                             <div>
-                                                        <div className='task-read' onClick={() => { setSelectedTaskId(task._id); setIsDetailsOpen(true); }}>
-                                                            <IoReaderOutline className='read-icon' />
-                                                        </div>
+                                                <div className='task-read' onClick={() => { setSelectedTaskId(task._id); setIsDetailsOpen(true); }}>
+                                                    <IoReaderOutline className='read-icon' />
+                                                </div>
                                             </div>
                                             <div>
                                                 <button className='table-btn-task delete-btn' onClick={() => handleDelete(task._id)}>Delete</button>
@@ -195,7 +190,7 @@ function Tasks() {
                                         </CircularProgress>
                                         <p className='progress'>In Progress</p>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                             <div className='add-task-main-container'>
@@ -262,7 +257,7 @@ function Tasks() {
                                     </div>
                                 ))}
 
-                                
+
                             </div>
                         </div>
                     </div>

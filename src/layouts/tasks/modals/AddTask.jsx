@@ -13,8 +13,8 @@ import {
     Tag,
     Select,
 } from '@chakra-ui/react';
-import axios from 'axios';
 import { useToast, Spinner } from '@chakra-ui/react';
+import apiService from '../../../services/api';
 
 function AddTaskModal({ isOpen, onClose, onAdded }) {
     const toast = useToast();
@@ -33,13 +33,6 @@ function AddTaskModal({ isOpen, onClose, onAdded }) {
         setFormData({ ...formData, priority });
     };
 
-    const token = localStorage.getItem("tm_token");
-    const axiosInstance = axios.create({
-        headers: {
-            Authorization: `Bearer ${token}`
-        },
-    });
-
     useEffect(() => {
         // No external data required for Add Task modal after removing Assign To and Project
     }, [])
@@ -49,7 +42,7 @@ function AddTaskModal({ isOpen, onClose, onAdded }) {
         e.preventDefault();
         setLoading(true);
         try {
-            const response = await axiosInstance.post('/api/task', formData);
+            const response = await apiService.createTask(formData);
             setFormData({
                 title: '',
                 description: '',
@@ -57,7 +50,7 @@ function AddTaskModal({ isOpen, onClose, onAdded }) {
                 priority: 'Most Important',
                 status: 'To-Do'
             });
-            let Message = response.data.message
+            let Message = response.message
             toast({
                 title: Message,
                 status: 'success',
@@ -69,7 +62,7 @@ function AddTaskModal({ isOpen, onClose, onAdded }) {
             onClose();
             if (typeof onAdded === 'function') onAdded();
         } catch (error) {
-            let Error = error.response.data.message
+            let Error = error?.response?.data?.message || error.message || 'Failed to create task'
             toast({
                 title: Error,
                 status: 'error',
